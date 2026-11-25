@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>stay us 혼캉스 가이드북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a passport-style travel booklet — green cover, sticky chapter tabs, one reading column of "visa pages" */
+:root{
+  --paper:#EEF2EA; --page:#FAFBF6; --ink:#1C2A23; --muted:#56665D; --line:#D3DCD1;
+  --cover:#1E4636; --cover-ink:#F1EBD6; --gilt:#D4B566; --stamp:#B0412D; --stamp2:#2D5B9A; --ok:#2F7A4F; --field:#FFFFFF; --track:#E2E8DF; --naver:#03A94D;
+  --guilloche:rgba(30,70,54,.05);
+  --f-display:"Nanum Myeongjo","AppleMyungjo",serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1713; --page:#16211B; --ink:#E4EBE5; --muted:#9AAAA0; --line:#2B3A32;
+  --cover:#123426; --cover-ink:#EDE3C4; --gilt:#D9B969; --stamp:#E58067; --stamp2:#8DB3EA; --ok:#6CC08E; --field:#0F1814; --track:#24312A; --naver:#3FCB7A;
+  --guilloche:rgba(217,185,105,.045); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1713; --page:#16211B; --ink:#E4EBE5; --muted:#9AAAA0; --line:#2B3A32;
+  --cover:#123426; --cover-ink:#EDE3C4; --gilt:#D9B969; --stamp:#E58067; --stamp2:#8DB3EA; --ok:#6CC08E; --field:#0F1814; --track:#24312A; --naver:#3FCB7A;
+  --guilloche:rgba(217,185,105,.045); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+p,li,small,.t,dd{text-wrap:pretty}
+h1,h2,h3,.msg,.lead{text-wrap:balance}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--stamp2)}
+footer a{overflow-wrap:anywhere}
+a:focus-visible,button:focus-visible{outline:2px solid var(--stamp2);outline-offset:2px}
+
+/* cover */
+.cover{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 88% 22%,transparent 0 12px,rgba(241,235,214,.04) 12px 13px);pointer-events:none}
+.cover .wrap{padding-block:40px 34px;position:relative;z-index:1}
+.kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--gilt)}
+.cover h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,8vw,54px);line-height:1.2;margin:14px 0 10px}
+.cover .lead{font-size:17px;max-width:42ch;margin:0;opacity:.92}
+.cover .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13px;color:var(--gilt);font-family:var(--f-mono);letter-spacing:.06em}
+.mrz{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;margin-top:22px;color:rgba(241,235,214,.6);white-space:nowrap;overflow:hidden}
+
+/* chapter tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tabs a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--page);white-space:nowrap}
+.tabs a.on{background:var(--cover);border-color:var(--cover);color:var(--cover-ink)}
+
+/* chapters */
+main .wrap{display:grid;gap:22px;padding-block:24px 56px}
+.ch{background:var(--page);border:1px solid var(--line);border-radius:12px;padding:26px 22px;background-image:repeating-radial-gradient(circle at 100% 100%,transparent 0 16px,var(--guilloche) 16px 17px)}
+.ch-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pno{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.ch h2{font-family:var(--f-display);font-weight:800;font-size:clamp(25px,5.4vw,32px);line-height:1.3;margin:6px 0 10px}
+.ch h3.sub{font-size:17px;margin:22px 0 10px}
+.ch .msg{font-size:17px;font-weight:600;margin:0 0 18px;max-width:44ch}
+.ch p{margin:0 0 12px;max-width:62ch}
+.src{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px}
+.fact{border-top:3px solid var(--stamp);padding:12px 2px 0}
+.fact .n{font-family:var(--f-mono);font-weight:600;font-size:34px;line-height:1.1;color:var(--stamp);font-variant-numeric:tabular-nums}
+.fact .t{font-size:14px;color:var(--muted);margin-top:4px}
+.split{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--field)}
+.split h3{margin:0 0 10px;font-size:15px}
+.bar{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;gap:10px;align-items:center;font-size:14px;margin:7px 0}
+.bar.wide{grid-template-columns:76px minmax(0,1fr) 46px}
+.bar .track{height:16px;background:var(--track);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--muted)}
+.bar.me .fill{background:var(--stamp)}
+.bar .v{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.split p{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+/* info boxes */
+.info{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--field);margin-top:16px}
+.info .lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--stamp2);margin-bottom:8px}
+.info ul{margin:0;padding-left:18px;display:grid;gap:8px}
+.info li{font-size:15px;line-height:1.65}
+.info li b{font-weight:600}
+.cite{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.gloss{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:15px}
+.gloss dt{font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+.gloss dd{margin:0}
+
+/* rules */
+.rules{display:grid;gap:12px}
+.rule{border:1px solid var(--line);border-radius:10px;background:var(--field);padding:16px 16px 14px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px}
+.ico{width:52px;height:52px;border-radius:50%;border:2px solid var(--cover);display:grid;place-items:center;color:var(--cover)}
+.ico svg{width:26px;height:26px}
+.rule h3{margin:2px 0 4px;font-size:17px}
+.rule p{margin:0 0 6px;font-size:15px}
+.rule .why{color:var(--muted);font-size:14px}
+.calc{display:inline-block;margin-top:6px;font-family:var(--f-mono);font-size:12.5px;padding:4px 10px;border-radius:6px;border:1px dashed var(--stamp);color:var(--stamp);font-variant-numeric:tabular-nums}
+.pending{border:2px dashed var(--line);border-radius:10px;padding:16px;margin-top:16px;color:var(--muted);font-size:14px}
+.pending b{color:var(--ink)}
+
+/* place lists */
+.places{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.place{border:1px solid var(--line);border-radius:10px;background:var(--field);padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:start}
+.place .nm{font-weight:700;font-size:16px;line-height:1.45}
+.place .tier{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:2px;white-space:nowrap}
+.place .tier.eco{border-color:var(--ok);color:var(--ok)}
+.place .addr{font-size:13.5px;color:var(--muted);grid-column:1}
+.place .desc{font-size:14.5px;grid-column:1 / -1;line-height:1.6}
+.place .desc b{font-weight:600}
+.place .cite{grid-column:1 / -1}
+.map{grid-column:2;grid-row:1 / span 2;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:600;color:var(--naver);border:1px solid var(--naver);border-radius:999px;padding:6px 12px;white-space:nowrap;min-height:36px}
+.map:hover{background:var(--naver);color:var(--field)}
+.map .n{font-family:var(--f-mono);font-weight:700}
+@media (max-width:420px){.place{grid-template-columns:1fr}.map{grid-column:1;grid-row:auto;justify-self:start}}
+
+/* checklists */
+.checks{display:grid;gap:8px}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--field);cursor:pointer}
+.chk input{margin-top:5px;width:18px;height:18px;accent-color:var(--ok);flex-shrink:0}
+.chk b{font-weight:600}
+.chk small{display:block;color:var(--muted);font-size:13px;line-height:1.55}
+.chk:has(input:checked){border-color:var(--ok)}
+.chk:has(input:checked) b{text-decoration:line-through;text-decoration-color:var(--ok)}
+.chk:focus-within{outline:2px solid var(--stamp2);outline-offset:2px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:14px}
+.progress .track{flex:1;height:10px;background:var(--track);border-radius:5px;overflow:hidden}
+.progress .fill{height:100%;background:var(--ok);transition:width .25s}
+.progress .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+.note{border-left:3px solid var(--gilt);padding:4px 0 4px 14px;font-size:14px;color:var(--muted);margin-top:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 18px;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--field);font-size:14px}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--cover);color:var(--cover-ink);font-family:var(--f-mono);font-size:12px;margin-right:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:8px;background:var(--cover);color:var(--cover-ink)}
+.btn:hover{filter:brightness(1.08)}
+button.ghost{font:500 14px var(--f-body);padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+
+footer{font-size:13px;color:var(--muted);line-height:1.7}
+footer ol{padding-left:20px;margin:8px 0 16px}
+footer li{margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="kicker">STAY US · SEOUL SOLO STAY GUIDE</div>
+    <h1>쉬는 건 그대로,<br>바꾸는 건 다섯 가지</h1>
+    <p class="lead">서울에서 혼자 묵는 밤을 위한 저탄소 숙박 가이드북입니다. 숙소를 고를 때부터 체크아웃까지, 편안함을 해치지 않는 방법만 모았습니다.</p>
+    <div class="meta"><span>혼캉스 · 1인 1실</span><span>VER 1.1 · 2026.11</span></div>
+    <div class="mrz" aria-hidden="true">P&lt;KORSTAYUS&lt;&lt;SOLO&lt;STAY&lt;GUIDE&lt;&lt;SEOUL&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="챕터">
+  <div class="wrap" id="tabs">
+    <a href="#why">왜</a>
+    <a href="#choose">고르기</a>
+    <a href="#pack">짐 싸기</a>
+    <a href="#stay">머물기</a>
+    <a href="#eat">먹기</a>
+    <a href="#move">움직이기</a>
+    <a href="#record">기록하기</a>
+    <a href="#checklist">체크리스트</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <!-- 0 WHY -->
+  <section class="ch" id="why" aria-labelledby="h-why">
+    <div class="ch-head"><span class="pno">CH.0 · WHY</span></div>
+    <h2 id="h-why">왜 혼자 묵는 방일까</h2>
+    <p class="msg">객실은 혼자 써도 둘이 써도 비슷한 에너지를 씁니다. 그래서 혼자 묵으면 그 방의 몫을 혼자 지게 됩니다.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">8.8%</div><div class="t">여행이 만드는 온실가스가 전 세계 배출에서 차지하는 비율 (2019)</div></div>
+      <div class="fact"><div class="n">약 21%</div><div class="t">관광 배출 중 숙박의 몫으로, 이동 다음으로 큽니다</div></div>
+      <div class="fact"><div class="n">객실 1박</div><div class="t">호텔 업계가 탄소를 계산하는 단위이며, 사람 수가 아닙니다</div></div>
+    </div>
+    <div class="split">
+      <h3>같은 방, 내 몫은 얼마일까 (객실 단위 에너지 기준)</h3>
+      <div class="bar me"><span>혼자</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">100%</span></div>
+      <div class="bar"><span>2명</span><div class="track"><div class="fill" style="width:50%"></div></div><span class="v">50%</span></div>
+      <div class="bar"><span>3명</span><div class="track"><div class="fill" style="width:33.3%"></div></div><span class="v">33%</span></div>
+      <div class="bar"><span>4명</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="v">25%</span></div>
+      <p>냉난방·조명·청소·세탁처럼 방 하나에 드는 에너지만 나눈 단순 계산입니다. 샤워처럼 사람 수만큼 늘어나는 사용량은 빠져 있습니다.</p>
+    </div>
+    <div class="info">
+      <div class="lbl">숫자로 더 보기</div>
+      <ul>
+        <li><b>여행 탄소는 빠르게 늘고 있습니다.</b> 2009~2019년 관광 배출은 해마다 3.5%씩 늘어 세계 경제 성장 속도의 2배였고, 2019년 한 해에만 52억 톤(CO₂e)이 나왔습니다.<span class="cite">Sun 외 (2024), Nature Communications</span></li>
+        <li><b>혼자 여행하는 사람도 늘고 있습니다.</b> 한국관광공사 데이터랩 분석에서 혼자 하는 여행 수요는 2018년 2.5%에서 2020년 4.8%로 늘었습니다.<span class="cite">파이낸셜뉴스 (2022.2.22)</span></li>
+        <li><b>집에서도 같은 일이 생깁니다.</b> 유럽 가구를 분석한 연구에서 1인 가구의 1인당 탄소는 5인 이상 가구의 약 2배(9.2톤 대 4.6톤)였습니다. 공간과 에너지를 나눠 쓸 사람이 없기 때문입니다.<span class="cite">Ivanova &amp; Büchs (2020), Energies</span></li>
+        <li><b>서울에서는 건물이 핵심입니다.</b> 서울 온실가스 배출의 약 68%가 건물 부문에서 나옵니다. 숙소도 건물입니다.<span class="cite">서울시 (2025.6.19)</span></li>
+      </ul>
+    </div>
+    <div class="info">
+      <div class="lbl">용어 정리</div>
+      <dl class="gloss">
+        <dt>CO₂e</dt><dd>이산화탄소 환산량입니다. 메탄 같은 여러 온실가스를 이산화탄소 기준으로 바꿔 합친 양입니다.</dd>
+        <dt>kWh</dt><dd>킬로와트시입니다. 1kW짜리 기기를 1시간 켰을 때 쓰는 전기의 양입니다.</dd>
+        <dt>배출계수</dt><dd>전기 1kWh를 만들 때 나오는 온실가스의 양입니다. 우리나라는 2023년 기준 약 0.42kg입니다.</dd>
+      </dl>
+    </div>
+    <p style="margin-top:16px">이것은 혼자 여행하는 사람이 더 낭비한다는 뜻이 아닙니다. 같은 방을 혼자 쓰면 1인당 몫이 구조적으로 커질 가능성이 높다는 뜻입니다. 혼자일 때는 온도도 조명도 전부 내가 정하기 때문에, 내 선택이 내 숫자에 그대로 반영됩니다. 이 가이드북은 그 몫을 조금 더 나은 방향으로 바꾸는 선택들을 모은 것입니다.</p>
+    <p class="src">출처: Sun 외(2024) Nature Communications · UNWTO·UNEP·WMO(2008) · Cornell Hotel Sustainability Benchmarking Index(2023)</p>
+  </section>
+
+  <!-- 1 CHOOSE -->
+  <section class="ch" id="choose" aria-labelledby="h-choose">
+    <div class="ch-head"><span class="pno">CH.1 · CHOOSE</span></div>
+    <h2 id="h-choose">숙소 고르기</h2>
+    <p class="msg">비싼 친환경 호텔이 아니어도 괜찮습니다. 예약 전에 네 가지만 확인하시기 바랍니다.</p>
+    <div class="checks" data-group="choose">
+      <label class="chk"><input type="checkbox" id="c-room"><span><b>혼자 쓰기 알맞은 크기의 방입니까?</b><small>1인실, 소형 객실, 게스트하우스 1인실을 추천합니다. 방이 작을수록 데우고 식힐 공간도 작습니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="c-clean"><span><b>연박할 때 청소를 건너뛸 수 있습니까?</b><small>예약 페이지의 공지나 FAQ, 리뷰에서 "청소 선택", "청소 생략"을 찾아보시기 바랍니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="c-station"><span><b>지하철역에서 걸어서 10분 안쪽입니까?</b><small>역이 가까우면 택시를 탈 일이 줄어듭니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="c-disp"><span><b>세면용품이 큰 통(디스펜서)으로 놓여 있습니까?</b><small>작은 일회용 병보다 쓰레기가 적습니다. 상세 페이지 사진에서 확인할 수 있습니다.</small></span></label>
+    </div>
+    <div class="info">
+      <div class="lbl">알아 두면 좋은 정보</div>
+      <ul>
+        <li><b>호텔 탄소는 이렇게 계산합니다.</b> 업계 표준(HCMI)은 "호텔 전체 탄소 ÷ 투숙한 객실 수"로 객실 1박당 탄소를 구합니다. 투숙객이 몇 명인지는 들어가지 않습니다.<span class="cite">Cornell Hotel Sustainability Benchmarking Index (2023)</span></li>
+        <li><b>작은 방은 지갑에도 좋습니다.</b> 2015년 국내 1인 여행객의 75.6%는 당일여행이었는데, 방값 부담과 1인용 객실 부족이 이유로 꼽혔습니다. 혼자 쓰기 알맞은 방을 고르면 비용과 탄소를 함께 줄일 수 있습니다.<span class="cite">산업연구원 보고서, 이투데이 (2017.4.10)</span></li>
+        <li><b>그린키(Green Key)는 국제 친환경 숙소 인증입니다.</b> 환경교육재단(FEE)이 운영하며, 에너지 절감·재활용·친환경 제품 사용 등 13개 항목을 서면과 현장에서 심사해 약 80개 국제 기준을 충족해야 받을 수 있습니다.<span class="cite">헤럴드경제 (2025.10.3)</span></li>
+      </ul>
+    </div>
+
+    <h3 class="sub">서울 그린키 인증 현황</h3>
+    <p style="font-size:15px">추천 목록이 아니라 인증 현황을 정리한 정보입니다. <b>선정 기준</b>은 2025~2026년 언론 보도나 호텔 공식 발표로 그린키 인증이 확인된 서울 숙소이며, <b>조사일</b>은 2026년 11월 4일입니다. 가격대를 짐작할 수 있도록 브랜드 등급을 함께 적었고, 부담이 적은 순서로 정리했습니다. 인증이 없는 숙소라도 위의 네 가지 확인 사항을 통과하면 충분히 좋은 선택입니다.</p>
+    <ul class="places">
+      <li class="place"><div class="nm">이비스 스타일 앰배서더 서울 명동<span class="tier eco">이코노미</span></div><a class="map" href="https://map.naver.com/p/search/%EC%9D%B4%EB%B9%84%EC%8A%A4%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94%20%EC%84%9C%EC%9A%B8%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">중구 명동</div><div class="desc">아코르 계열로, 아코르 한국 28개 호텔이 모두 그린키 인증을 받았습니다.</div><span class="cite">호텔앤레스토랑 (2026.2.23)</span></li>
+      <li class="place"><div class="nm">알로프트 서울 명동<span class="tier">미드스케일</span></div><a class="map" href="https://map.naver.com/p/search/%EC%95%8C%EB%A1%9C%ED%94%84%ED%8A%B8%20%EC%84%9C%EC%9A%B8%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">중구 명동</div><div class="desc">2025년 그린키 인증을 받았습니다.</div><span class="cite">뉴스탭 (2025.9.19)</span></li>
+      <li class="place"><div class="nm">AC 호텔 서울 강남<span class="tier">미드스케일</span></div><a class="map" href="https://map.naver.com/p/search/AC%20%ED%98%B8%ED%85%94%20%EB%B0%94%EC%9D%B4%20%EB%A9%94%EB%A6%AC%EC%96%B4%ED%8A%B8%20%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">강남구 역삼동</div><div class="desc">2026년 그린키 인증을 받았습니다.</div><span class="cite">디지틀조선일보 (2026.1.29)</span></li>
+      <li class="place"><div class="nm">풀만 앰배서더 서울 이스트폴<span class="tier">업스케일</span></div><a class="map" href="https://map.naver.com/p/search/%ED%92%80%EB%A7%8C%20%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94%20%EC%84%9C%EC%9A%B8%20%EC%9D%B4%EC%8A%A4%ED%8A%B8%ED%8F%B4" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">광진구 구의동</div><div class="desc">아코르 한국 그린키 전체 인증 대상에 포함됩니다.</div><span class="cite">호텔앤레스토랑 (2026.2.23)</span></li>
+      <li class="place"><div class="nm">몬드리안 서울 이태원<span class="tier">업스케일</span></div><a class="map" href="https://map.naver.com/p/search/%EB%AA%AC%EB%93%9C%EB%A6%AC%EC%95%88%20%EC%84%9C%EC%9A%B8%20%EC%9D%B4%ED%83%9C%EC%9B%90" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">용산구 이태원동</div><div class="desc">아코르 한국 그린키 전체 인증 대상에 포함됩니다.</div><span class="cite">호텔앤레스토랑 (2026.2.23)</span></li>
+      <li class="place"><div class="nm">그랜드 머큐어 임피리얼 팰리스 서울 강남<span class="tier">업스케일</span></div><a class="map" href="https://map.naver.com/p/search/%EA%B7%B8%EB%9E%9C%EB%93%9C%20%EB%A8%B8%ED%81%90%EC%96%B4%20%EC%9E%84%ED%94%BC%EB%A6%AC%EC%96%BC%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%20%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">강남구 논현동</div><div class="desc">2025년 그린키 인증을 받았으며, 호텔 안에 한옥 공간이 있습니다.</div><span class="cite">헤럴드경제 (2025.10.3)</span></li>
+      <li class="place"><div class="nm">호텔 나루 서울 엠갤러리<span class="tier">업스케일</span></div><a class="map" href="https://map.naver.com/p/search/%ED%98%B8%ED%85%94%20%EB%82%98%EB%A3%A8%20%EC%84%9C%EC%9A%B8%20%EC%97%A0%EA%B0%A4%EB%9F%AC%EB%A6%AC" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">마포구 마포동</div><div class="desc">국내 호텔업계 최초로 그린키 인증을 받았다고 밝히고 있습니다. 옥상 정원, 빗물 저장, 대나무 칫솔, 자전거 대여를 운영합니다.</div><span class="cite">호텔 공식 홈페이지 · Forbes (2026.1.25)</span></li>
+      <li class="place"><div class="nm">소피텔 앰배서더 서울<span class="tier">럭셔리</span></div><a class="map" href="https://map.naver.com/p/search/%EC%86%8C%ED%94%BC%ED%85%94%20%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94%20%EC%84%9C%EC%9A%B8" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">송파구 잠실</div><div class="desc">아코르 한국 그린키 전체 인증 대상에 포함됩니다.</div><span class="cite">호텔앤레스토랑 (2026.2.23)</span></li>
+      <li class="place"><div class="nm">JW 메리어트 호텔 서울<span class="tier">럭셔리</span></div><a class="map" href="https://map.naver.com/p/search/JW%20%EB%A9%94%EB%A6%AC%EC%96%B4%ED%8A%B8%20%ED%98%B8%ED%85%94%20%EC%84%9C%EC%9A%B8" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">서초구 반포동</div><div class="desc">3년 연속 그린키 인증을 받았습니다.</div><span class="cite">더파워뉴스 (2026.5.6)</span></li>
+      <li class="place"><div class="nm">포시즌스 호텔 서울<span class="tier">럭셔리</span></div><a class="map" href="https://map.naver.com/p/search/%ED%8F%AC%EC%8B%9C%EC%A6%8C%EC%8A%A4%20%ED%98%B8%ED%85%94%20%EC%84%9C%EC%9A%B8" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">종로구 광화문</div><div class="desc">그린키 인증을 받았습니다. 리필형 어메니티, 테트라팩 생수, 나무 카드키를 쓰고, 남은 비누와 어메니티는 종로구 복지관에 기부합니다.</div><span class="cite">Forbes (2026.1.25)</span></li>
+    </ul>
+    <p class="note">인증은 해마다 갱신하기 때문에 예약 전에 호텔 공식 홈페이지에서 다시 확인하시기 바랍니다. 이 리스트는 어떤 호텔과도 협찬·제휴 관계가 없습니다.</p>
+  </section>
+
+  <!-- 2 PACK -->
+  <section class="ch" id="pack" aria-labelledby="h-pack">
+    <div class="ch-head"><span class="pno">CH.2 · PACK</span></div>
+    <h2 id="h-pack">혼캉스 파우치 싸기</h2>
+    <p class="msg">객실 50개 이상인 숙소는 칫솔·치약·면도기·샴푸·린스를 무료로 주지 않습니다. 챙겨 가면 돈도 쓰레기도 줄어듭니다.</p>
+    <div class="checks" data-group="pack">
+      <label class="chk"><input type="checkbox" id="p-brush"><span><b>칫솔·치약</b><small>여행용 케이스 하나면 충분합니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="p-bottle"><span><b>샴푸·린스·바디워시 소분 용기</b><small>집에서 쓰던 것을 작은 통에 덜어 가시면 됩니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="p-tumbler"><span><b>텀블러</b><small>객실 생수병 대신 정수기나 수돗물을 받아 쓸 수 있습니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="p-bag"><span><b>접이식 장바구니</b><small>편의점에서 봉투를 사지 않아도 됩니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="p-box"><span><b>다회용기 하나(선택)</b><small>남은 음식을 담거나 포장할 때 씁니다.</small></span></label>
+    </div>
+    <div class="info">
+      <div class="lbl">알아 두면 좋은 정보</div>
+      <ul>
+        <li><b>무엇이 바뀌었습니까?</b> 2024년 3월 29일부터 개정된 자원재활용법에 따라, 객실 50실 이상 숙박업소는 칫솔·치약·면도기·샴푸·린스 5종을 무료로 제공할 수 없습니다. 필요하면 돈을 내고 사야 합니다.</li>
+        <li><b>생수를 빼는 호텔도 생겼습니다.</b> 규제를 계기로 객실 생수병 대신 정수기를 두는 호텔이 늘었다는 보도가 있습니다. 텀블러가 있으면 어디서든 편합니다.</li>
+        <li><b>규제 범위는 넓어질 수 있습니다.</b> 지금은 객실 50실 이상인 숙소가 대상이지만, 더 작은 숙소로 넓히는 일정은 발표마다 달라 출발 전에 숙소 안내를 확인하는 것이 좋습니다.</li>
+      </ul>
+    </div>
+    <p class="src">출처: 아시아경제 (2024.4.21) "호텔방 칫솔 주지 말랬는데 생수도 빼…" 보도.</p>
+  </section>
+
+  <!-- 3 STAY -->
+  <section class="ch" id="stay" aria-labelledby="h-stay">
+    <div class="ch-head"><span class="pno">CH.3 · STAY</span></div>
+    <h2 id="h-stay">객실에서 지키는 다섯 가지</h2>
+    <p class="msg">쉬는 데 방해되지 않는 것만 골랐습니다. 하나만 실천해도 괜찮습니다.</p>
+    <div class="rules">
+      <article class="rule">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"></rect><path d="M9 8h6M12 14v3"></path></svg></div>
+        <div><h3>외출할 때 카드키 뽑기</h3>
+          <p>카드키를 뽑으면 냉난방과 조명이 한 번에 꺼집니다. 돌아와서 다시 꽂으면 됩니다.</p>
+          <p class="why">비어 있는 방을 데우거나 식히는 것이 객실에서 가장 큰 낭비입니다.</p>
+          <span class="calc">예시: 1kW 냉난방 4시간 끔 → 4kWh × 0.4173 ≈ 1.67kg CO₂e</span></div>
+      </article>
+      <article class="rule">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"></path><path d="M12 9v7"></path></svg></div>
+        <div><h3>냉방 26℃, 난방 20℃ 안팎</h3>
+          <p>집에서 쓰던 온도에 맞추면 충분히 쾌적합니다. 이불과 겉옷으로 1~2℃를 채워 보시기 바랍니다.</p>
+          <p class="why">바깥과 설정 온도의 차이가 클수록 에어컨과 난방이 전기를 더 많이 씁니다.</p></div>
+      </article>
+      <article class="rule">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M7 6v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6"></path><path d="M10 10h4"></path></svg></div>
+        <div><h3>수건은 걸어 두고 다시 쓰기</h3>
+          <p>한 번 쓴 수건을 걸이에 걸어 두면 대부분의 숙소에서 "다시 쓴다"는 표시가 됩니다. 바닥에 두면 교체됩니다.</p>
+          <p class="why">수건 한 장을 덜 빨면 세탁과 건조에 드는 전기와 물이 줄어듭니다.</p></div>
+      </article>
+      <article class="rule">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-5h6v5"></path></svg></div>
+        <div><h3>연박이면 청소 건너뛰기</h3>
+          <p>문고리에 "청소 불필요" 표시를 걸거나 프런트에 말씀하시면 됩니다. 쓰레기만 문 앞에 내놓아도 됩니다.</p>
+          <p class="why">매일 청소에는 청소기, 침구·수건 세탁, 새 어메니티 보충이 함께 따라옵니다.</p></div>
+      </article>
+      <article class="rule">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></div>
+        <div><h3>안 보는 TV와 조명 끄기</h3>
+          <p>틀어만 두는 TV, 켜 둔 욕실 조명을 그때그때 끕니다. 잘 때는 무드등 하나면 충분합니다.</p>
+          <p class="why">하나씩은 작아도 밤새 쌓이면 차이가 납니다.</p>
+          <span class="calc">예시: 조명 0.12kW + TV 0.1kW 3시간 끔 → 0.66kWh ≈ 0.28kg CO₂e</span></div>
+      </article>
+    </div>
+    <div class="info">
+      <div class="lbl">연구로 보는 객실 습관</div>
+      <ul>
+        <li><b>호텔에서는 집보다 덜 아끼게 됩니다.</b> 호텔 고객은 편안함을 양보해야 하는 친환경 행동을 가장 적게 한다는 연구가 있습니다. 그래서 이 수칙들은 쉬는 데 거의 방해되지 않는 것만 골랐습니다.<span class="cite">Miao &amp; Wei (2016), Journal of Hospitality &amp; Tourism Research</span></li>
+        <li><b>다른 사람이 하면 나도 하게 됩니다.</b> 미국 호텔 실험에서 "이 방에 묵었던 투숙객 대부분이 수건을 다시 썼습니다"라는 안내를 본 투숙객은 49.3%가 수건을 재사용했습니다. 일반적인 환경 보호 안내를 본 투숙객은 37.2%였습니다.<span class="cite">Goldstein, Cialdini &amp; Griskevicius (2008), Journal of Consumer Research</span></li>
+        <li><b>안내문만으로는 잘 바뀌지 않습니다.</b> 친환경 가치에 호소하는 안내문만 붙였을 때는 수건 재사용과 객실 전력 사용에 뚜렷한 변화가 없었다는 실험도 있습니다. 눈에 보이는 숫자와 보상이 함께 있어야 합니다.<span class="cite">Dolnicar 외 (2017), Journal of Travel Research</span></li>
+      </ul>
+    </div>
+    <div class="pending"><b>우리 방 1박 실험 결과</b><br>팀원들이 "평소처럼 지낸 밤"과 "수칙을 지킨 밤"을 직접 기록하고 있습니다. 결과가 나오면 수칙별 실측 절감량을 이 자리에 공개하겠습니다.</div>
+    <p class="src">계산 기준: 전력 1kWh = 0.4173kg CO₂e (2023년 기준 국가 전력배출계수, 온실가스종합정보센터). 소비전력은 예시 가정값입니다. 내 객실의 실제 값은 가전 뒷면의 표기에서 확인할 수 있습니다.</p>
+  </section>
+
+  <!-- 4 EAT -->
+  <section class="ch" id="eat" aria-labelledby="h-eat">
+    <div class="ch-head"><span class="pno">CH.4 · EAT</span></div>
+    <h2 id="h-eat">혼자서 채소로 한 끼</h2>
+    <p class="msg">혼자 들르기 편하고, 고기 대신 채소를 고를 수 있는 서울 식당을 모았습니다.</p>
+    <div class="info" style="margin-top:0;margin-bottom:18px">
+      <div class="lbl">왜 채식 한 끼일까</div>
+      <ul>
+        <li><b>식물성 식단은 음식 탄소를 크게 줄입니다.</b> 전 세계 농장 약 3만 8천 곳의 자료를 분석한 연구에서, 동물성 식품을 뺀 식단은 사는 지역에 따라 음식 관련 온실가스를 최대 73%까지 줄이는 것으로 나타났습니다.<span class="cite">Poore &amp; Nemecek (2018), Science</span></li>
+        <li><b>단백질 하나만 바꿔도 차이가 납니다.</b> 같은 양의 단백질을 얻을 때, 배출이 가장 적은 축산 방식의 소고기도 완두콩보다 온실가스를 약 6배 더 배출했습니다.<span class="cite">Poore &amp; Nemecek (2018), Science · Oxford 대학 보도자료</span></li>
+        <li><b>숙소에서 걸어갈 수 있는 곳을 고르면 이동 탄소도 줄어듭니다.</b> 포장할 때는 짐 싸기에서 챙긴 다회용기를 쓰면 좋습니다.</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">가볍게 혼밥하기 좋은 곳</h3>
+    <ul class="places">
+      <li class="place"><div class="nm">마지<span class="tier eco">사찰음식</span></div><a class="map" href="https://map.naver.com/p/search/%EB%A7%88%EC%A7%80%20%EC%9E%90%ED%95%98%EB%AC%B8%EB%A1%9C5%EA%B8%B8%20%EC%82%AC%EC%B0%B0%EC%9D%8C%EC%8B%9D" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">종로구 자하문로5길 19 · 서촌</div><div class="desc">한옥에서 연잎밥 정식을 내는 사찰음식점입니다. <b>버섯덮밥, 미역국 같은 단품</b>이 있어 혼자 간단히 먹기 좋습니다.</div><span class="cite">에스콰이어 (2026.5.22)</span></li>
+      <li class="place"><div class="nm">칙피스 성수<span class="tier">비건 메뉴 표시</span></div><a class="map" href="https://map.naver.com/p/search/%EC%B9%99%ED%94%BC%EC%8A%A4%20%EC%84%B1%EC%88%98" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">성동구 연무장5길 9-16 블루스톤타워 1층</div><div class="desc">뉴욕 스타일 팔라펠 바입니다. 후무스·팔라펠 <b>보울과 피타 샌드위치가 1인분 단위</b>이고, 메뉴판에 비건 메뉴가 따로 표시되어 있습니다. 육류 메뉴도 함께 팝니다.</div><span class="cite">HappyCow (2026.4 리뷰 기준)</span></li>
+      <li class="place"><div class="nm">일상<span class="tier eco">채소 사찰음식</span></div><a class="map" href="https://map.naver.com/p/search/%EC%9D%BC%EC%83%81%20%EB%A7%88%EB%B0%A9%EB%A1%9C6%EA%B8%B8%20%EC%82%AC%EC%B0%B0%EC%9D%8C%EC%8B%9D" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">서초구 마방로6길 7-27 · 양재</div><div class="desc">채소 반찬과 국, 밥으로 차린 <b>"요일 정식"</b>이 대표 메뉴입니다. 단호박죽 같은 단품도 있습니다.</div><span class="cite">에스콰이어 (2026.5.22)</span></li>
+      <li class="place"><div class="nm">플랜튜드 고덕점<span class="tier eco">전 메뉴 비건</span></div><a class="map" href="https://map.naver.com/p/search/%ED%94%8C%EB%9E%9C%ED%8A%9C%EB%93%9C%20%EA%B3%A0%EB%8D%95%EC%A0%90" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">강동구 고덕비즈밸리로 51 아이파크더리버몰 4층</div><div class="desc">풀무원이 운영하는 비건 레스토랑으로, <b>전 메뉴가 비건 인증</b>을 받았습니다. 두부를 쓴 메뉴가 많고, 메뉴마다 영양 성분과 칼로리를 표시합니다.</div><span class="cite">에스콰이어 (2025.10.9) · CEO스코어데일리 (2025.4.18)</span></li>
+    </ul>
+
+    <h3 class="sub">한 번쯤 제대로 먹어 보고 싶을 때</h3>
+    <ul class="places">
+      <li class="place"><div class="nm">몽크스부처<span class="tier eco">비건</span></div><a class="map" href="https://map.naver.com/p/search/%EB%AA%BD%ED%81%AC%EC%8A%A4%EB%B6%80%EC%B2%98%20%EC%9D%B4%ED%83%9C%EC%9B%90" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">용산구 이태원로 228-1 3~4층 · 이태원</div><div class="desc">비건 요리와 비건 와인, 논알코올 음료를 냅니다. 이태원·한남에서 전시나 공연을 보고 들르기 좋습니다.</div><span class="cite">하퍼스 바자 (2026.6.16)</span></li>
+      <li class="place"><div class="nm">점점점점점점<span class="tier eco">비건 코스</span></div><a class="map" href="https://map.naver.com/p/search/%EC%A0%90%EC%A0%90%EC%A0%90%EC%A0%90%EC%A0%90%EC%A0%90%20%EC%83%81%EC%95%94" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">마포구 성암로15길 36 1층 · 상암</div><div class="desc">8가지로 구성된 캐주얼한 비건 코스(약 4만 원)를 냅니다. 폐알루미늄으로 만든 가구를 씁니다. <b>점심은 사전 예약이 필수</b>입니다.</div><span class="cite">에스콰이어 (2025.10.9)</span></li>
+      <li class="place"><div class="nm">플랫오<span class="tier">비건 지향</span></div><a class="map" href="https://map.naver.com/p/search/%ED%94%8C%EB%9E%AB%EC%98%A4%20%EC%96%91%EC%9E%AC%EC%B2%9C%EB%A1%9C" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">서초구 양재천로 103-1 1층 · 양재천</div><div class="desc">락토·오보 채식을 바탕으로 한 비건 지향 레스토랑입니다. 창밖으로 양재천이 보입니다.</div><span class="cite">하퍼스 바자 (2026.6.16)</span></li>
+      <li class="place"><div class="nm">레귬<span class="tier eco">비건 파인다이닝</span></div><a class="map" href="https://map.naver.com/p/search/%EB%A0%88%EA%B7%AC%20%EC%8B%A0%EC%82%AC" target="_blank" rel="noopener"><span class="n">N</span>지도</a><div class="addr">강남구 강남대로 652 신사스퀘어 2층 · 신사</div><div class="desc">디저트까지 식물성 재료로 만드는 코스 레스토랑으로, 비건 레스토랑으로는 아시아에서 처음 미쉐린 스타를 받았습니다. 특별한 날 한 번쯤 가 볼 만합니다.</div><span class="cite">에스콰이어 (2025.10.9)</span></li>
+    </ul>
+    <p class="note">혼밥 정보는 기사와 리뷰에 나온 내용을 옮긴 것입니다. 1인 좌석, 영업시간, 휴무일은 바뀔 수 있으니 방문 전에 네이버 지도에서 확인하시기 바랍니다. 이 리스트는 어떤 식당과도 협찬 관계가 없습니다.</p>
+  </section>
+
+  <!-- 5 MOVE -->
+  <section class="ch" id="move" aria-labelledby="h-move">
+    <div class="ch-head"><span class="pno">CH.5 · MOVE</span></div>
+    <h2 id="h-move">차 없이 서울 혼캉스</h2>
+    <p class="msg">여행 탄소에서 가장 큰 몫은 이동입니다. 서울은 지하철만으로 충분히 다닐 수 있습니다.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">약 75%</div><div class="t">관광 배출 중 항공·자동차 등 이동이 차지하는 몫</div></div>
+      <div class="fact"><div class="n">1위</div><div class="t">트립어드바이저 2025 나홀로 여행지 부문, 서울. 강점으로 꼽힌 것은 지하철</div></div>
+    </div>
+    <div class="checks" data-group="move">
+      <label class="chk"><input type="checkbox" id="m-air"><span><b>공항에서는 공항철도로</b><small>인천공항에서 서울역까지 바로 이어집니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="m-walk"><span><b>숙소 주변은 걸어서</b><small>숙소에서 걸어갈 수 있는 식당과 카페를 먼저 찾아 두면 동선이 짧아집니다.</small></span></label>
+      <label class="chk"><input type="checkbox" id="m-route"><span><b>하루 동선은 지하철 노선 하나를 따라</b><small>갈아타기가 줄면 택시를 부르고 싶은 순간도 줄어듭니다.</small></span></label>
+    </div>
+    <div class="split" style="margin-top:16px">
+      <h3>관광 CO₂ 배출은 어디서 나올까</h3>
+      <div class="bar wide"><span>항공</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">40%</span></div>
+      <div class="bar wide"><span>자동차</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="v">32%</span></div>
+      <div class="bar wide me"><span>숙박</span><div class="track"><div class="fill" style="width:52.5%"></div></div><span class="v">21%</span></div>
+      <div class="bar wide"><span>관광 활동</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="v">4%</span></div>
+      <div class="bar wide"><span>기타 교통</span><div class="track"><div class="fill" style="width:7.5%"></div></div><span class="v">3%</span></div>
+      <p>2005년 전 세계 관광 CO₂ 배출 기준입니다. 이동을 줄이고 남은 큰 조각이 숙박이어서, 이 가이드북은 숙박에 집중했습니다.</p>
+    </div>
+    <div class="info">
+      <div class="lbl">왜 서울일까</div>
+      <ul>
+        <li><b>혼자 여행하기 좋은 도시로 뽑혔습니다.</b> 서울은 트립어드바이저 「트래블러스 초이스 베스트 오브 베스트」 2025년 나홀로 여행지 부문 1위였습니다. 고궁과 고층빌딩, 전통시장, 밤낮없이 다니는 대중교통이 강점으로 꼽혔습니다.<span class="cite">서울시 미디어허브 (2025.1.31)</span></li>
+        <li><b>멀리 떠날 여행을 가까운 여행으로 바꿀 수 있습니다.</b> 서울과 수도권에 사는 사람이라면 비행기나 자동차 대신 지하철만으로 갈 수 있어서, 여행 탄소에서 가장 큰 이동 몫을 크게 줄일 수 있습니다.</li>
+        <li><b>새로운 여행을 권하는 것은 아닙니다.</b> 집에 머물면 숙박 탄소는 생기지 않습니다. 이 가이드북은 혼캉스를 새로 권하는 것이 아니라, 어차피 떠나기로 한 여행이라면 멀리보다 가까이, 혼자서도 덜 배출하는 방법을 고를 수 있도록 돕습니다.</li>
+      </ul>
+    </div>
+    <p class="src">출처: UNWTO·UNEP·WMO(2008) · 서울시 미디어허브(2025.1.31)</p>
+  </section>
+
+  <!-- 6 RECORD -->
+  <section class="ch" id="record" aria-labelledby="h-record">
+    <div class="ch-head"><span class="pno">CH.6 · RECORD</span></div>
+    <h2 id="h-record">탄소여권에 기록하기</h2>
+    <p class="msg">기록하면 숫자가 보이고, 숫자가 보이면 계속하게 됩니다.</p>
+    <ol class="steps">
+      <li>출발 전, 지킬 행동 3개 서약하기</li>
+      <li>그날 밤 객실 전기 사용 기록하기</li>
+      <li>내 몫의 탄소(kg) 확인하고 도장 받기</li>
+    </ol>
+    <a class="btn" href="passport.html">탄소여권 열기
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    <div class="info">
+      <div class="lbl">기록이 도움이 되는 이유</div>
+      <ul>
+        <li><b>숫자로 보이면 아끼게 됩니다.</b> 에너지 사용량을 보여 주는 "피드백"의 효과를 모은 메타분석에서 피드백은 전반적으로 에너지 절약에 효과가 있었습니다. 효과 크기는 연구마다 달랐습니다.<span class="cite">Karlin, Zinger &amp; Ford (2015), Psychological Bulletin</span></li>
+        <li><b>약속하면 더 잘 지킵니다.</b> 체크인 때 친환경 실천을 약속하고 배지를 받은 투숙객은 수건을 더 많이 다시 쓰고, 외출할 때 조명을 더 많이 껐습니다. 구체적인 행동을 약속할수록 효과가 컸습니다.<span class="cite">Baca-Motes 외 (2013), Journal of Consumer Research</span></li>
+        <li>그래서 탄소여권은 서약으로 시작해서, 내 몫의 kg을 보여 주고, 도장으로 마무리합니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="ch" id="checklist" aria-labelledby="h-check">
+    <div class="ch-head"><span class="pno">CHECKLIST</span><button class="ghost" id="reset" type="button">체크 모두 지우기</button></div>
+    <h2 id="h-check">출발 전 한 장 체크리스트</h2>
+    <p class="msg">이 화면만 캡처해 가셔도 됩니다. 체크한 내용은 이 기기에만 저장됩니다.</p>
+    <div class="progress"><div class="track"><div class="fill" id="pfill" style="width:0%"></div></div><span class="v" id="pval">0 / 13</span></div>
+    <div class="checks" data-group="all">
+      <label class="chk"><input type="checkbox" id="k1"><span><b>혼자 쓰기 알맞은 크기의 방으로 예약</b></span></label>
+      <label class="chk"><input type="checkbox" id="k2"><span><b>연박이면 청소 선택 가능한지 확인</b></span></label>
+      <label class="chk"><input type="checkbox" id="k3"><span><b>지하철역 도보 10분 안쪽 숙소</b></span></label>
+      <label class="chk"><input type="checkbox" id="k4"><span><b>칫솔·치약·세면용품 파우치</b></span></label>
+      <label class="chk"><input type="checkbox" id="k5"><span><b>텀블러</b></span></label>
+      <label class="chk"><input type="checkbox" id="k6"><span><b>탄소여권에 서약하기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k7"><span><b>외출할 때 카드키 뽑기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k8"><span><b>냉방 26℃ · 난방 20℃ 안팎</b></span></label>
+      <label class="chk"><input type="checkbox" id="k9"><span><b>수건 걸어 두고 다시 쓰기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k10"><span><b>연박이면 청소 건너뛰기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k11"><span><b>안 보는 TV·조명 끄기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k13"><span><b>채소로 한 끼 먹어 보기</b></span></label>
+      <label class="chk"><input type="checkbox" id="k12"><span><b>지하철로 이동하고 탄소여권에 기록하기</b></span></label>
+    </div>
+  </section>
+
+  <footer>
+    <strong>출처</strong>
+    <ol>
+      <li>Sun, Y.-Y. 외 (2024). Drivers of global tourism carbon emissions. Nature Communications, 15. <a href="https://doi.org/10.1038/s41467-024-54582-7" target="_blank" rel="noopener">doi.org/10.1038/s41467-024-54582-7</a></li>
+      <li>UNWTO·UNEP·WMO (2008). Climate Change and Tourism: Responding to Global Challenges.</li>
+      <li>Cornell Center for Hospitality Research. Hotel Sustainability Benchmarking Index 2023.</li>
+      <li>Ivanova, D. &amp; Büchs, M. (2020). Household Sharing for Carbon and Energy Reductions. Energies, 13(8). <a href="https://doi.org/10.3390/en13081909" target="_blank" rel="noopener">doi.org/10.3390/en13081909</a></li>
+      <li>Poore, J. &amp; Nemecek, T. (2018). Reducing food's environmental impacts through producers and consumers. Science. <a href="https://doi.org/10.1126/science.aaq0216" target="_blank" rel="noopener">doi.org/10.1126/science.aaq0216</a></li>
+      <li>Miao, L. &amp; Wei, W. (2016). Journal of Hospitality &amp; Tourism Research, 40(3). <a href="https://doi.org/10.1177/1096348013495699" target="_blank" rel="noopener">doi.org/10.1177/1096348013495699</a></li>
+      <li>Goldstein, N. J., Cialdini, R. B. &amp; Griskevicius, V. (2008). A Room with a Viewpoint. Journal of Consumer Research, 35(3). <a href="https://doi.org/10.1086/586910" target="_blank" rel="noopener">doi.org/10.1086/586910</a></li>
+      <li>Dolnicar, S. 외 (2017). Journal of Travel Research, 56(8). <a href="https://doi.org/10.1177/0047287516678089" target="_blank" rel="noopener">doi.org/10.1177/0047287516678089</a></li>
+      <li>Karlin, B. 외 (2015). The effects of feedback on energy conservation. Psychological Bulletin, 141(6). <a href="https://doi.org/10.1037/a0039650" target="_blank" rel="noopener">doi.org/10.1037/a0039650</a></li>
+      <li>Baca-Motes, K. 외 (2013). Commitment and Behavior Change. Journal of Consumer Research.</li>
+      <li>온실가스종합정보센터. 2023년 기준 국가 전력배출계수 0.4173 tCO₂e/MWh.</li>
+      <li>파이낸셜뉴스 (2022.2.22). 코로나 이후 ‘혼자 하는 여행’ 증가. <a href="https://www.fnnews.com/news/202202220854477214" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>이투데이 (2017.4.10). ‘혼여족’ 증가세 뚜렷…2년새 2배(산업연구원 보고서). <a href="https://www.etoday.co.kr/news/view/1478321" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>서울시 (2025.6.19). 건물에너지 신고·등급제 집중 운영. <a href="https://news.seoul.go.kr/env/archives/563115" target="_blank" rel="noopener">보도 보기</a></li>
+      <li>서울시 미디어허브 (2025.1.31). 서울, 홀로 여행하기 좋은 도시 1위 선정. <a href="https://mediahub.seoul.go.kr/archives/2013298" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>아시아경제 (2024.4.21). 개정 자원재활용법 관련 보도. <a href="https://view.asiae.co.kr/article/2024041808001945180" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>호텔앤레스토랑 (2026.2.23). 아코르 한국 28개 호텔 전부 그린 키 인증. <a href="https://www.hotelrestaurant.co.kr/news/articleView.html?idxno=21367" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>뉴스탭 (2025.9.19). 친환경 호텔 경쟁 본격화(알로프트 서울 명동). <a href="https://www.newstap.co.kr/news/articleView.html?idxno=313231" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>디지틀조선일보 (2026.1.29). AC 호텔 서울 강남, 그린키 획득. <a href="https://digitalchosun.dizzo.com/site/data/html_dir/2026/01/29/2026012980079.html" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>헤럴드경제 (2025.10.3). 그랜드 머큐어 임피리얼 팰리스 서울 강남, 그린키 획득. <a href="https://www.heraldk.com/article/2025100315314223747" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>더파워뉴스 (2026.5.6). JW 메리어트 서울, 그린 키 3년 연속 획득. <a href="https://www.thepowernews.co.kr/view.php?ud=202605060916448040de3f0aa1be_7" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>Hotel Naru Seoul MGallery, Sustainability. <a href="https://www.hotelnaruseoul.com/en/about-us/sustainability/" target="_blank" rel="noopener">공식 홈페이지</a></li>
+      <li>Forbes (2026.1.25). In Seoul, Luxury Hotels Shed Plastic And Recycle Keycards To Go Green. <a href="https://www.forbes.com/sites/christopherelliott/2026/01/25/in-seoul-luxury-hotels-shed-plastic-and-recycle-keycards-to-go-green/" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>에스콰이어 코리아 (2025.10.9). 연휴 끝나고 찾아가야 할 서울 비건 맛집 4. <a href="https://www.esquirekorea.co.kr/article/1889217" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>에스콰이어 코리아 (2026.5.22). 사찰음식 식당 소개. <a href="https://www.esquirekorea.co.kr/article/1903179" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>하퍼스 바자 코리아 (2026.6.16). 지금 가봐야 할 서울 비건 다이닝 5. <a href="https://www.harpersbazaar.co.kr/article/1904452" target="_blank" rel="noopener">기사 보기</a></li>
+      <li>HappyCow. Chick Peace 칙피스 - Seongsu. <a href="https://happycow.net/reviews/chick-peace-seoul-212812" target="_blank" rel="noopener">리뷰 페이지</a></li>
+      <li>CEO스코어데일리 (2025.4.18). 풀무원 플랜튜드 고덕점 개점. <a href="https://ceoscoredaily.com/page/view/2025041809195454631" target="_blank" rel="noopener">기사 보기</a></li>
+    </ol>
+    이 가이드북은 서울여대 바롬종합설계프로젝트 6조 stay us가 만들었습니다. 어떤 숙소나 식당, 업체와도 협찬·제휴 관계가 없습니다.<br>숙소 인증과 식당 정보는 바뀔 수 있습니다(마지막 점검: 2026년 11월). 프로젝트가 끝나면 가이드북과 탄소여권을 깃허브에 공개해 누구나 이어서 고쳐 쓸 수 있게 할 예정입니다.
+  </footer>
+
+</div>
+</main>
+
+<script>
+(function(){
+  const KEY='stayus-guide-checks';
+  let saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ saved={}; }
+  const boxes=[...document.querySelectorAll('.checks input[type=checkbox]')];
+  const all=[...document.querySelectorAll('[data-group="all"] input')];
+  function progress(){
+    const n=all.filter(b=>b.checked).length;
+    document.getElementById('pval').textContent=n+' / '+all.length;
+    document.getElementById('pfill').style.width=(n/all.length*100)+'%';
+  }
+  boxes.forEach(b=>{
+    if(saved[b.id]) b.checked=true;
+    b.addEventListener('change',()=>{
+      saved[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){}
+      progress();
+    });
+  });
+  document.getElementById('reset').addEventListener('click',()=>{
+    boxes.forEach(b=>b.checked=false); saved={};
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    progress();
+  });
+  progress();
+
+  const tabs=[...document.querySelectorAll('#tabs a')];
+  const secs=tabs.map(a=>document.querySelector(a.getAttribute('href')));
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          const i=secs.indexOf(e.target);
+          tabs.forEach((t,j)=>t.classList.toggle('on',j===i));
+          const t=tabs[i]; if(t){ const w=t.parentElement; w.scrollLeft=t.offsetLeft-w.clientWidth/2+t.clientWidth/2; }
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(s=>s&&io.observe(s));
+  }
+})();
+</script>
+
+</body>
+</html>

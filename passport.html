@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>stay us 탄소여권</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a passport booklet — green cover band, then "visa pages" stacked in one narrow column */
+:root{
+  --paper:#EEF2EA; --page:#FAFBF6; --ink:#1C2A23; --muted:#5F6F66; --line:#D3DCD1;
+  --cover:#1E4636; --cover-ink:#F1EBD6; --gilt:#B8923A; --stamp:#B0412D; --stamp2:#2D5B9A; --ok:#2F7A4F; --field:#FFFFFF; --track:#E2E8DF;
+  --guilloche:rgba(30,70,54,.06);
+  --f-display:"Nanum Myeongjo","AppleMyungjo",serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1713; --page:#16211B; --ink:#E4EBE5; --muted:#97A79D; --line:#2B3A32;
+  --cover:#123426; --cover-ink:#EDE3C4; --gilt:#D2AE5A; --stamp:#E07A63; --stamp2:#86AEE6; --ok:#6CC08E; --field:#0F1814; --track:#24312A;
+  --guilloche:rgba(210,174,90,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1713; --page:#16211B; --ink:#E4EBE5; --muted:#97A79D; --line:#2B3A32;
+  --cover:#123426; --cover-ink:#EDE3C4; --gilt:#D2AE5A; --stamp:#E07A63; --stamp2:#86AEE6; --ok:#6CC08E; --field:#0F1814; --track:#24312A;
+  --guilloche:rgba(210,174,90,.05); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:grid;gap:20px}
+h1,h2,h3{text-wrap:balance}
+
+/* cover */
+.cover{background:var(--cover);color:var(--cover-ink);border-radius:6px 14px 14px 6px;padding:28px 24px 18px;position:relative;overflow:hidden;box-shadow:inset 10px 0 0 rgba(0,0,0,.18)}
+.cover::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 85% 30%,transparent 0 10px,rgba(255,255,255,.035) 10px 11px);pointer-events:none}
+.cover .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:var(--gilt)}
+.cover h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,7vw,44px);line-height:1.15;margin:8px 0 2px}
+.cover .en{font-family:var(--f-mono);letter-spacing:.3em;font-size:12px;color:var(--gilt)}
+.cover p{margin:14px 0 0;max-width:46ch;font-size:14px;opacity:.9}
+.emblem{position:absolute;right:22px;top:24px;width:64px;height:64px;border:2px solid var(--gilt);border-radius:50%;display:grid;place-items:center;color:var(--gilt);z-index:1}
+.holder{display:flex;gap:10px;align-items:end;margin-top:18px;flex-wrap:wrap;position:relative;z-index:1}
+.holder label{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--gilt);display:block}
+.holder input{background:transparent;border:0;border-bottom:1px solid rgba(241,235,214,.4);color:var(--cover-ink);font:600 18px var(--f-body);padding:4px 0;width:min(240px,100%)}
+.holder input:focus{outline:none;border-bottom-color:var(--gilt)}
+.mrz{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;margin-top:18px;color:rgba(241,235,214,.75);white-space:nowrap;overflow:hidden;position:relative;z-index:1}
+
+/* pages */
+.page{background:var(--page);border:1px solid var(--line);border-radius:10px;padding:22px 20px;background-image:repeating-radial-gradient(circle at 0 100%,transparent 0 14px,var(--guilloche) 14px 15px)}
+.page-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.page-head h2{font-family:var(--f-display);font-size:22px;margin:0}
+.pno{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.12em}
+.lede{color:var(--muted);margin:0 0 14px;font-size:14px;max-width:62ch}
+
+.pledges{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--field);cursor:pointer;min-width:0}
+.chk input{margin-top:4px;accent-color:var(--cover)}
+.chk b{display:block;font-weight:600;font-size:14px}
+.chk small{color:var(--muted);font-size:12px}
+.chk:has(input:checked){border-color:var(--ok);box-shadow:inset 3px 0 0 var(--ok)}
+.chk:focus-within{outline:2px solid var(--stamp2);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.f label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.f input,.f select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);font:15px var(--f-body);min-height:40px}
+.f input:focus,.f select:focus{outline:2px solid var(--stamp2);outline-offset:1px}
+.unit{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+fieldset{border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin:14px 0 0;min-width:0}
+legend{font-size:13px;font-weight:600;padding:0 6px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--field);flex-wrap:wrap}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:7px 14px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg input:checked+label{background:var(--cover);color:var(--cover-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--stamp2)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts .chk{padding:7px 10px}
+.example{font-family:var(--f-mono);font-size:11px;color:var(--stamp);letter-spacing:.06em}
+.note{font-size:12px;color:var(--muted);margin:8px 0 0}
+
+/* legs */
+.legs{display:grid;gap:10px}
+.leg{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr) auto;gap:10px;align-items:end;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--field)}
+.leg .f input,.leg .f select{min-width:0}
+.leg .rt{display:flex;align-items:center;gap:6px;font-size:13px;min-height:40px;white-space:nowrap}
+.leg .rt input{accent-color:var(--cover);width:16px;height:16px}
+.leg .legkg{grid-column:1 / -1;font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.leg .del{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;min-width:40px;min-height:40px;font-size:18px;cursor:pointer}
+@media (max-width:560px){.leg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.leg .mode{grid-column:1 / -1}}
+
+/* result */
+.result{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:stretch}
+@media (max-width:560px){.result{grid-template-columns:1fr}}
+.big{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--field);display:grid;gap:10px;align-content:start}
+.big .lbl{font-size:12px;color:var(--muted)}
+.big .num{font-family:var(--f-mono);font-weight:600;font-size:36px;line-height:1.1;font-variant-numeric:tabular-nums}
+.big .num small{font-size:15px;font-weight:400;margin-left:4px}
+.big .sub{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stack{display:flex;height:14px;border-radius:4px;overflow:hidden;background:var(--track)}
+.stack .a{background:var(--stamp)} .stack .b{background:var(--stamp2)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bars{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--field)}
+.bars h3{margin:0 0 10px;font-size:13px;font-weight:600}
+.bars h3 + .bar{margin-top:0}
+.bar{display:grid;grid-template-columns:86px minmax(0,1fr) 70px;align-items:center;gap:8px;font-size:12px;margin:6px 0}
+.bar .track{height:12px;background:var(--track);border-radius:3px;overflow:hidden}
+.bar .fill{height:100%;background:var(--muted);border-radius:3px;transition:width .3s}
+.bar.me .fill{background:var(--stamp)}
+.bar.me span:first-child{font-weight:600}
+.bar .v{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.bars p{margin:8px 0 0;font-size:12px;color:var(--muted)}
+.bars + .bars{margin-top:12px}
+
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{font:600 14px var(--f-body);padding:10px 16px;border-radius:8px;border:1px solid var(--cover);background:var(--cover);color:var(--cover-ink);cursor:pointer;min-height:44px}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button:focus-visible{outline:2px solid var(--stamp2);outline-offset:2px}
+.toast{font-size:13px;color:var(--ok);min-height:1.4em;margin-top:8px}
+
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.stamp{aspect-ratio:1;max-width:100%;border:3px double var(--stamp);color:var(--stamp);border-radius:50%;display:grid;place-items:center;text-align:center;padding:14px;transform:rotate(var(--r,-6deg));font-family:var(--f-mono);font-size:11px;line-height:1.35;position:relative}
+.stamp.blue{border-color:var(--stamp2);color:var(--stamp2);border-radius:14px}
+.stamp b{display:block;font-family:var(--f-body);font-size:14px;margin:3px 0}
+.stamp .del{position:absolute;top:2px;right:6px;border:0;background:none;color:inherit;font-size:16px;padding:2px 6px;opacity:.6;min-height:0}
+.stamp.empty{border-style:dashed;border-color:var(--line);color:var(--muted);transform:none}
+
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.kv{border-left:2px solid var(--gilt);padding:4px 10px}
+.kv .k{font-size:12px;color:var(--muted)}
+.kv .v{font-family:var(--f-mono);font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.badge{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.badge.on{border-color:var(--ok);color:var(--ok);font-weight:600}
+
+.norms{display:grid;gap:8px}
+.norm{display:grid;grid-template-columns:minmax(0,1fr) 110px 48px;gap:10px;align-items:center;font-size:13px}
+.norm .track{height:8px;background:var(--track);border-radius:4px;overflow:hidden}
+.norm .fill{height:100%;background:var(--ok)}
+.norm .v{font-family:var(--f-mono);text-align:right}
+pre.code{white-space:pre-wrap;word-break:break-all;font-family:var(--f-mono);font-size:12px;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:12px;margin:12px 0 0;max-height:220px;overflow:auto}
+footer{font-size:12px;color:var(--muted);line-height:1.7}
+footer table{border-collapse:collapse;margin:8px 0;font-size:12px}
+footer td,footer th{border-bottom:1px solid var(--line);padding:4px 10px 4px 0;text-align:left;font-weight:400}
+footer td:last-child{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="cover">
+    <div class="emblem" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 30V15L17 6l12 9v15"></path><path d="M12 30v-8h10v8"></path><path d="M17 1v3M28 3l-2 2M33 12h-3"></path></svg>
+    </div>
+    <div class="kicker">REPUBLIC OF SOLO TRAVELERS · STAY US</div>
+    <h1>탄소여권</h1>
+    <div class="en">CARBON PASSPORT</div>
+    <p>혼자 떠난 여행에서 숙박과 이동으로 생긴 탄소를 기록하고, 줄인 만큼 도장을 받는 여권입니다.</p>
+    <div class="holder">
+      <div>
+        <label for="nick">소지인 · HOLDER (닉네임)</label>
+        <input id="nick" maxlength="20" placeholder="닉네임을 적어 주세요" autocomplete="off">
+      </div>
+    </div>
+    <div class="mrz" id="mrz" aria-hidden="true">P&lt;KORSTAYUS&lt;&lt;</div>
+  </header>
+
+  <!-- 1. pledge -->
+  <section class="page" aria-labelledby="h-pledge">
+    <div class="page-head"><h2 id="h-pledge">출국 심사 · 서약</h2><span class="pno">PAGE 01 · PLEDGE</span></div>
+    <p class="lede">이번 여행에서 지킬 행동을 3개 이상 골라 주세요. 막연한 다짐보다 구체적인 행동을 약속할 때 실천율이 높아집니다.</p>
+    <div class="pledges" id="pledges"></div>
+    <div class="btns"><button id="savePledge">서약하기</button></div>
+    <div class="toast" id="pledgeToast" role="status"></div>
+  </section>
+
+  <!-- 2. log a trip -->
+  <section class="page" aria-labelledby="h-log">
+    <div class="page-head"><h2 id="h-log">여행 기록 · 숙박과 이동</h2><span class="pno">PAGE 02 · VISA</span></div>
+    <p class="lede">여행 한 번을 기록하는 페이지입니다. 숙박은 하룻밤 평균 전기 사용량을 적으면 숙박 일수만큼 곱해 계산합니다. 이동은 구간마다 교통수단과 거리를 적으면 됩니다. <span class="example" id="exTag">예시값이 들어 있습니다</span></p>
+
+    <div class="grid">
+      <div class="f"><label for="date">체크인 날짜</label><input id="date" type="date"></div>
+      <div class="f"><label for="nights">숙박 일수</label>
+        <select id="nights"></select></div>
+      <div class="f"><label for="stay">숙소 유형</label>
+        <select id="stay"><option>비즈니스호텔</option><option>호텔</option><option>게스트하우스</option><option>한옥스테이</option><option>기타</option></select></div>
+      <div class="f"><label for="ppl">이 객실에 묵은 인원</label>
+        <select id="ppl"><option value="1">1명 (혼자)</option><option value="2">2명</option><option value="3">3명</option><option value="4">4명</option></select></div>
+    </div>
+
+    <fieldset>
+      <legend>이 여행은</legend>
+      <div class="seg" role="radiogroup" aria-label="기록 종류">
+        <input type="radio" name="mode" id="m-base" value="base"><label for="m-base">평소처럼 지낸 여행</label>
+        <input type="radio" name="mode" id="m-act" value="act" checked><label for="m-act">수칙을 지킨 여행</label>
+      </div>
+      <p class="note">두 종류를 모두 기록하면 평소보다 1박당 얼마나 줄였는지 계산합니다. "평소처럼 지낸 여행"을 고르면 실천한 행동의 체크가 모두 해제되고, "수칙을 지킨 여행"을 고르면 서약한 행동이 자동으로 체크됩니다.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>여행 중 실천한 행동</legend>
+      <div class="acts" id="acts"></div>
+      <p class="note">카드키는 아래 전기 사용량 계산에 바로 반영되고, 냉방 온도는 "기기별로 직접 입력"을 고를 때 반영됩니다. 수건·청소·세면도구·텀블러는 탄소 대신 "아낀 자원"으로 따로 셉니다.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>객실 전기 사용 (하룻밤 평균)</legend>
+      <div class="seg" role="radiogroup" aria-label="계산 방식" style="margin-bottom:12px">
+        <input type="radio" name="emode" id="e-avg" value="avg" checked><label for="e-avg">연구 평균값 사용</label>
+        <input type="radio" name="emode" id="e-man" value="manual"><label for="e-man">기기별로 직접 입력</label>
+      </div>
+      <div class="grid">
+        <div class="f"><label for="away">외출한 시간 <span class="unit">h/박</span></label><input id="away" type="number" inputmode="decimal" step="0.5" min="0" max="24" value="5"></div>
+        <div class="f"><label for="meter">측정기 실측 (선택) <span class="unit">kWh/박</span></label><input id="meter" type="number" inputmode="decimal" step="0.01" min="0" placeholder="있으면 이 값 사용"></div>
+      </div>
+      <p class="note" id="avgNote">객실 전기를 실제로 측정한 연구의 평균값으로 계산합니다. 투숙 중인 객실은 평균 0.226kW, 손님이 없는 빈 객실은 평균 0.176kW를 썼습니다(Lee 외, 2024, Energy and Buildings). 카드키를 뽑고 외출하면 그 시간은 빈 객실과 같은 전력을 쓰는 것으로 계산합니다. 외출한 시간은 예시값(5시간)이므로 실제 시간으로 바꿔 주세요.</p>
+      <div id="manualWrap" hidden>
+        <div class="grid" style="margin-top:12px">
+          <div class="f"><label for="season">냉난방 종류</label><select id="season"><option value="heat">난방</option><option value="cool">냉방</option></select></div>
+          <div class="f"><label for="acKw">냉난방 소비전력 <span class="unit">kW</span></label><input id="acKw" type="number" inputmode="decimal" step="0.01" min="0" placeholder="기기 표기 확인"></div>
+          <div class="f"><label for="acH">냉난방 켠 시간 (방에 있을 때) <span class="unit">h</span></label><input id="acH" type="number" inputmode="decimal" step="0.5" min="0" max="24" placeholder="시간"></div>
+          <div class="f"><label for="ltKw">조명 합계 <span class="unit">kW</span></label><input id="ltKw" type="number" inputmode="decimal" step="0.01" min="0" placeholder="기기 표기 확인"></div>
+          <div class="f"><label for="ltH">조명 켠 시간 (방에 있을 때) <span class="unit">h</span></label><input id="ltH" type="number" inputmode="decimal" step="0.5" min="0" max="24" placeholder="시간"></div>
+          <div class="f"><label for="etcKw">TV·기타 <span class="unit">kW</span></label><input id="etcKw" type="number" inputmode="decimal" step="0.01" min="0" placeholder="기기 표기 확인"></div>
+          <div class="f"><label for="etcH">TV·기타 켠 시간 <span class="unit">h</span></label><input id="etcH" type="number" inputmode="decimal" step="0.5" min="0" max="24" placeholder="시간"></div>
+          <div class="f" id="tempWrap"><label for="tempUp">평소보다 올린 냉방 온도 <span class="unit">℃</span></label><input id="tempUp" type="number" inputmode="decimal" step="1" min="0" max="6" value="2"></div>
+        </div>
+        <p class="note">소비전력은 에어컨·TV 뒷면이나 리모컨에 적힌 표기(W)를 1,000으로 나눠 kW로 적습니다. 카드키를 꽂아 둔 채 외출하면 외출한 시간 동안에도 냉난방과 조명이 켜져 있던 것으로 계산합니다.</p>
+      </div>
+      <div class="sub" id="effLine" style="font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:8px"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>숙소까지 이동</legend>
+      <div class="legs" id="legs"></div>
+      <div class="btns" style="margin-top:10px"><button class="ghost" id="addLeg" type="button">+ 구간 추가</button></div>
+      <p class="note">거리는 네이버 지도나 카카오맵 길찾기에 나오는 편도 거리(km)를 적습니다. 자가용은 배출량을 함께 탄 인원수로 나눕니다.</p>
+    </fieldset>
+
+    <div class="result" aria-live="polite">
+      <div class="big">
+        <div>
+          <div class="lbl">이번 여행에서 내 몫의 탄소</div>
+          <div class="num"><span id="totKg">0.00</span><small>kg CO₂e</small></div>
+        </div>
+        <div class="stack" aria-hidden="true"><div class="a" id="stA"></div><div class="b" id="stB"></div></div>
+        <div class="legend"><span><i style="background:var(--stamp)"></i>숙박 <b id="accKg">0.00</b> kg</span><span><i style="background:var(--stamp2)"></i>이동 <b id="trKg">0.00</b> kg</span></div>
+        <div class="sub" id="roomLine"></div>
+        <div class="sub" id="cmpLine"></div>
+        <div>
+          <div class="lbl">아낀 자원 (이번 여행)</div>
+          <div class="badges" id="resBadges"></div>
+        </div>
+      </div>
+      <div>
+        <div class="bars">
+          <h3>같은 방을 여럿이 나눠 쓰면 1박당 1인 몫은?</h3>
+          <div id="bars"></div>
+        </div>
+        <div class="bars">
+          <h3>같은 거리(<span id="distTxt">0</span>km)를 혼자 다른 수단으로 갔다면?</h3>
+          <div id="tbars"></div>
+          <p>도보·자전거는 0kg입니다. 자가용은 혼자 탔을 때를 기준으로 했습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btns">
+      <button id="saveTrip">이 여행 기록하고 도장 받기</button>
+      <button class="ghost" id="resetForm" type="button">입력 지우기</button>
+    </div>
+    <div class="toast" id="tripToast" role="status"></div>
+  </section>
+
+  <!-- 3. my passport -->
+  <section class="page" aria-labelledby="h-mine">
+    <div class="page-head"><h2 id="h-mine">나의 입국 도장</h2><span class="pno">PAGE 03 · STAMPS</span></div>
+    <div class="summary">
+      <div class="kv"><div class="k">기록한 여행 · 숙박</div><div class="v" id="sTrips">0회 · 0박</div></div>
+      <div class="kv"><div class="k">누적 탄소 (숙박+이동)</div><div class="v" id="sTotal">0.00 kg</div></div>
+      <div class="kv"><div class="k">1박당 숙박 (평소 / 수칙)</div><div class="v" id="sNight">– / –</div></div>
+      <div class="kv"><div class="k">평소 대비 1박당 절감</div><div class="v" id="sSave">–</div></div>
+    </div>
+    <div class="note" style="margin-bottom:6px">지금까지 아낀 자원</div>
+    <div class="badges" id="resTotal" style="margin-bottom:14px"></div>
+    <div class="note" style="margin-bottom:6px">서약 달성</div>
+    <div class="badges" id="pledgeBadges"></div>
+    <div class="stamps" id="stamps" style="margin-top:18px"></div>
+    <div class="btns"><button class="ghost" id="clearAll" type="button">내 기록 모두 지우기</button></div>
+    <div class="toast" id="clearToast" role="status"></div>
+  </section>
+
+  <footer>
+    <strong>계산 기준</strong><br>
+    숙박: 전력 1kWh = 0.4173kg CO₂e (2023년 기준 국가 전력배출계수, 온실가스종합정보센터). 1인 몫은 객실 전기 사용량을 인원수로 나눈 단순 추정치이며, 샤워 온수·세탁·청소에 드는 에너지는 포함하지 않습니다.<br>
+    객실 전기 기본값: 홍콩 호텔 객실 3곳을 1년간(2018.6~2019.5) 15분 단위로 측정한 연구의 평균값을 씁니다. 투숙 중 15분당 56.49Wh(평균 0.226kW), 체크아웃한 빈 객실 15분당 44.03Wh(평균 0.176kW)입니다. Lee, J. 외 (2024). Energy and Buildings, 302, 113735. 호텔마다 설비가 달라 실제 값과 차이가 있을 수 있습니다.<br>
+    실천 반영(직접 입력 시): 카드키를 뽑지 않으면 외출한 시간 동안에도 냉난방·조명이 켜져 있던 것으로 보고 그 시간을 더합니다. 냉방 온도를 1℃ 올릴 때마다 냉방 전력을 4.7% 줄여 계산합니다(한국에너지공단 발표, 에너지경제 2020.5.22 보도). 난방 온도의 효과는 근거 자료를 찾지 못해 계산에서 제외했습니다. 수건·청소·세면도구·텀블러는 탄소 대신 "아낀 자원"으로 셉니다. 수건은 1박에 1장, 생수병은 1박에 1병, 청소는 연박한 횟수, 세면용품은 여행 한 번에 1세트를 기준으로 했습니다.<br>
+    이동: 국내에는 교통수단별 1인 1km 공식 배출계수가 마땅치 않아 영국 정부(DESNZ)의 2025년 온실가스 환산계수를 빌려 추정했습니다. 우리나라의 차량·전력 구성과 달라 실제 값과 차이가 있을 수 있습니다.
+    <div class="tbl"><table id="efTable"><tr><th>수단</th><th>kg CO₂e / 1km</th></tr></table></div>
+    기록은 이 브라우저에만 저장되며, 어디로도 전송되지 않습니다. stay us · 바롬종합설계프로젝트 6조.<br><a href="index.html" style="color:var(--stamp2)">← stay us 혼캉스 가이드북으로 돌아가기</a>
+  </footer>
+</div>
+
+<script>
+const EF = 0.4173; // kgCO2e per kWh (Korea grid, 2023)
+// kgCO2e per passenger-km (DESNZ 2025). car* are per vehicle-km, divided by occupants.
+const MODES = [
+  {id:'walk',   t:'도보·자전거',        f:0,       green:true},
+  {id:'subway', t:'지하철',             f:0.0278,  green:true, note:'London Underground'},
+  {id:'train',  t:'기차 (KTX·일반열차)', f:0.03546, green:true, note:'National rail'},
+  {id:'coach',  t:'고속·시외버스',       f:0.02776, green:true, note:'Coach'},
+  {id:'bus',    t:'시내버스',            f:0.10385, green:true, note:'Average local bus'},
+  {id:'taxi',   t:'택시',               f:0.14861, note:'Taxi, regular'},
+  {id:'car',    t:'자가용 (휘발유)',      f:0.16272, car:true, note:'Average car, petrol'},
+  {id:'diesel', t:'자가용 (경유)',        f:0.17304, car:true, note:'Average car, diesel'},
+  {id:'hybrid', t:'자가용 (하이브리드)',   f:0.12825, car:true, note:'Average car, hybrid'},
+];
+const MODE = Object.fromEntries(MODES.map(m=>[m.id,m]));
+const PLEDGES = [
+  {id:'card', t:'외출할 때 카드키 뽑기', d:'냉난방·조명 자동 OFF'},
+  {id:'temp', t:'냉방 26℃ · 난방 20℃ 안팎', d:'적정 온도 유지'},
+  {id:'towel', t:'수건 다시 쓰기', d:'걸어 두면 재사용 표시'},
+  {id:'clean', t:'연박 시 청소 생략', d:'세탁·청소 에너지 절약'},
+  {id:'amenity', t:'개인 세면도구 챙기기', d:'일회용품 대신 내 파우치'},
+  {id:'tumbler', t:'텀블러 쓰기', d:'객실 생수병 대신'},
+  {id:'standby', t:'TV·대기전력 끄기', d:'안 쓰는 전원은 OFF'},
+  {id:'subway', t:'대중교통·도보로 이동', d:'차 없이 서울 혼캉스'},
+  {id:'veggie', t:'채소로 한 끼', d:'고기 대신 채식 메뉴'},
+];
+const $ = id => document.getElementById(id);
+const f2 = n => (Math.round(n*100)/100).toFixed(2);
+const store = {
+  get(){ try { return JSON.parse(localStorage.getItem('stayus-passport')||'null'); } catch(e){ return null; } },
+  set(v){ try { localStorage.setItem('stayus-passport', JSON.stringify(v)); } catch(e){} }
+};
+// migrate v1 records (single night, no legs)
+function norm(n){
+  const nights = n.nights || 1;
+  const perNight = n.perNight != null ? n.perNight : (n.per || 0);
+  const legs = Array.isArray(n.legs) ? n.legs : [];
+  const accKg = n.accKg != null ? n.accKg : perNight*nights;
+  const trKg = n.trKg != null ? n.trKg : 0;
+  return {...n, nights, perNight, legs, accKg, trKg, totKg: n.totKg != null ? n.totKg : accKg+trKg, acts:n.acts||[]};
+}
+const ROOM_IN = 0.226, ROOM_VACANT = 0.176; // kW, Lee 외(2024) Energy and Buildings 302: 15분당 56.49Wh(투숙), 44.03Wh(체크아웃)
+const COOL_PER_DEG = 0.047; // 냉방 설정온도 1℃ 상향 시 약 4.7% 절감 (한국에너지공단, 에너지경제 2020.5.22)
+let S = store.get() || { nick:'', pledges:[], pledgedAt:null, nights:[] };
+S.trips = (S.trips || S.nights || []).map(norm); delete S.nights;
+// v3: 테스트 기록 초기화 (한 번만)
+try { if(!localStorage.getItem('stayus-reset-v3')){ S.trips = []; localStorage.setItem('stayus-reset-v3','1'); } } catch(e){}
+function resOf(acts, nights){
+  const a = new Set(acts||[]);
+  return {
+    towel: a.has('towel') ? nights : 0,              // 1박에 수건 1장 덜 세탁
+    clean: a.has('clean') ? Math.max(nights-1,0) : 0, // 연박일 때 청소 생략 횟수
+    amenity: a.has('amenity') ? 1 : 0,               // 일회용 세면용품 1세트
+    bottle: a.has('tumbler') ? nights : 0,           // 1박에 생수병 1병 덜 씀
+  };
+}
+function resBadges(r){
+  const items = [['towel','수건 세탁','장'],['clean','객실 청소','회'],['amenity','일회용 세면용품','세트'],['bottle','생수병','병']];
+  const on = items.filter(([k])=>r[k]>0);
+  return on.length ? on.map(([k,t,u])=>`<span class="badge on">${t} ${r[k]}${u} 덜 씀</span>`).join('') : '<span class="badge">아직 없습니다</span>';
+}
+
+/* ---------- static UI ---------- */
+function chk(p, name, checked, withDesc){
+  return `<label class="chk"><input type="checkbox" name="${name}" value="${p.id}" ${checked?'checked':''}><span><b>${p.t}</b>${withDesc?`<small>${p.d}</small>`:''}</span></label>`;
+}
+$('pledges').innerHTML = PLEDGES.map(p=>chk(p,'pledge',S.pledges.includes(p.id),true)).join('');
+const DEFAULT_ACTS = ['card','towel','amenity','tumbler','subway'];
+function actDefaults(){ return S.pledges.length ? S.pledges : DEFAULT_ACTS; }
+$('acts').innerHTML = PLEDGES.map(p=>chk(p,'act',actDefaults().includes(p.id),false)).join('');
+function setActs(list){ document.querySelectorAll('input[name=act]').forEach(i=>i.checked=list.includes(i.value)); }
+$('nights').innerHTML = Array.from({length:14},(_,i)=>`<option value="${i+1}">${i+1}박</option>`).join('');
+$('nights').value = '2';
+$('nick').value = S.nick || '';
+$('date').valueAsDate = new Date();
+$('efTable').innerHTML = '<tr><th>수단</th><th>kg CO₂e / 1km</th></tr>' + MODES.map(m=>`<tr><td>${m.t}${m.car?' (차 1대 기준)':''}</td><td>${m.f}</td></tr>`).join('');
+
+/* ---------- legs ---------- */
+let legSeq = 0;
+function legHTML(l){
+  const id = 'leg'+(legSeq++);
+  return `<div class="leg" data-id="${id}">
+    <div class="f mode"><label for="${id}-m">이동 수단</label><select id="${id}-m" class="lm">${MODES.map(m=>`<option value="${m.id}" ${m.id===l.mode?'selected':''}>${m.t}</option>`).join('')}</select></div>
+    <div class="f"><label for="${id}-k">편도 거리 <span class="unit">km</span></label><input id="${id}-k" class="lk" type="number" inputmode="decimal" min="0" step="0.5" value="${l.km}"></div>
+    <div class="f lpw" ${MODE[l.mode].car?'':'hidden'}><label for="${id}-p">함께 탄 인원</label><select id="${id}-p" class="lp">${[1,2,3,4,5].map(n=>`<option value="${n}" ${n===l.carPpl?'selected':''}>${n}명</option>`).join('')}</select></div>
+    <label class="rt"><input type="checkbox" class="lr" ${l.round?'checked':''}>왕복</label>
+    <button class="del" type="button" aria-label="이 구간 지우기">×</button>
+    <div class="legkg"></div>
+  </div>`;
+}
+function addLeg(l){ $('legs').insertAdjacentHTML('beforeend', legHTML(l||{mode:'subway',km:10,round:true,carPpl:1})); }
+function readLegs(){
+  return [...document.querySelectorAll('.leg')].map(el=>{
+    const mode = el.querySelector('.lm').value;
+    const km = Math.max(0, parseFloat(el.querySelector('.lk').value)||0);
+    const round = el.querySelector('.lr').checked;
+    const carPpl = parseInt(el.querySelector('.lp').value,10)||1;
+    return {mode, km, round, carPpl};
+  });
+}
+function legKg(l){
+  const m = MODE[l.mode]; const dist = l.km*(l.round?2:1);
+  return m.car ? dist*m.f/l.carPpl : dist*m.f;
+}
+$('legs').addEventListener('input', e=>{
+  const leg = e.target.closest('.leg');
+  if(e.target.classList.contains('lm')) leg.querySelector('.lpw').hidden = !MODE[e.target.value].car;
+  touched(); renderCalc();
+});
+$('legs').addEventListener('click', e=>{
+  if(e.target.classList.contains('del')){ e.target.closest('.leg').remove(); touched(); renderCalc(); }
+});
+$('addLeg').addEventListener('click', ()=>{ addLeg({mode:'subway',km:5,round:false,carPpl:1}); touched(); renderCalc(); });
+addLeg({mode:'subway',km:15,round:true,carPpl:1});
+
+/* ---------- calculation ---------- */
+const num = id => Math.max(0, parseFloat($(id).value) || 0);
+function calc(){
+  const ppl = parseInt($('ppl').value,10) || 1;
+  const nights = parseInt($('nights').value,10) || 1;
+  const acts = [...document.querySelectorAll('input[name=act]:checked')].map(i=>i.value);
+  const card = acts.includes('card');
+  const season = $('season').value;
+  const away = num('away');
+  const tempUp = num('tempUp');
+  const tf = (acts.includes('temp') && season==='cool') ? Math.max(0, 1 - COOL_PER_DEG*tempUp) : 1;
+  const manual = document.querySelector('input[name=emode]:checked').value === 'manual';
+  const awayH = Math.min(away, 24);
+  const acHours = num('acH') + (card ? 0 : away);
+  const ltHours = num('ltH') + (card ? 0 : away);
+  const acKwh = num('acKw')*acHours*tf;
+  const est = manual
+    ? acKwh + num('ltKw')*ltHours + num('etcKw')*num('etcH')
+    : ROOM_IN*(24-awayH) + awayH*(card ? ROOM_VACANT : ROOM_IN);
+  const meter = parseFloat($('meter').value);
+  const kwhNight = meter > 0 ? meter : est;
+  const res = resOf(acts, nights);
+  const perNight = kwhNight*EF/ppl;
+  const accKg = perNight*nights;
+  const legs = readLegs();
+  const legKgs = legs.map(legKg);
+  const trKg = legKgs.reduce((a,b)=>a+b,0);
+  const dist = legs.reduce((a,l)=>a+l.km*(l.round?2:1),0);
+  return { ppl, nights, kwhNight, perNight, accKg, legs, legKgs, trKg, dist, totKg: accKg+trKg, measured: meter > 0, manual, acts, card, away, season, tempUp, tf, acHours, ltHours, res };
+}
+function avg(a){ return a.length ? a.reduce((x,y)=>x+y,0)/a.length : null; }
+function nightAvg(trips, mode){
+  const t = trips.filter(x=>x.mode===mode); const n = t.reduce((a,x)=>a+x.nights,0);
+  return n ? t.reduce((a,x)=>a+x.perNight*x.nights,0)/n : null;
+}
+function myStats(trips){
+  const b = nightAvg(trips,'base'), a = nightAvg(trips,'act');
+  return { b, a, save: (b!=null && a!=null) ? b-a : null };
+}
+function renderCalc(){
+  const r = calc();
+  $('totKg').textContent = f2(r.totKg);
+  $('accKg').textContent = f2(r.accKg);
+  $('trKg').textContent = f2(r.trKg);
+  const tot = r.totKg || 1;
+  $('stA').style.width = (r.accKg/tot*100)+'%';
+  $('stB').style.width = (r.trKg/tot*100)+'%';
+  $('manualWrap').hidden = !r.manual; $('avgNote').hidden = r.manual;
+  $('tempWrap').hidden = !(r.acts.includes('temp') && r.season==='cool');
+  $('effLine').textContent = r.measured ? '측정기 실측값으로 계산했습니다. 카드키·온도 체크는 반영되지 않습니다.'
+    : !r.manual ? `연구 평균값: 방에 있을 때 0.226kW × ${24-Math.min(r.away,24)}h + 외출 ${Math.min(r.away,24)}h × ${r.card?'0.176kW (카드키 뽑음, 빈 객실 수준)':'0.226kW (카드키 꽂아 둠)'}` + (r.acts.includes('temp') ? ' · 냉방 온도 효과는 "기기별로 직접 입력"에서만 계산됩니다' : '')
+    : `계산에 쓴 시간: 냉난방 ${r.acHours}h · 조명 ${r.ltHours}h` + (r.card ? ` (카드키 뽑음: 외출 ${r.away}h 동안 꺼짐)` : (r.away? ` (카드키 꽂아 둠: 외출 ${r.away}h 포함)`:'')) + (r.tf<1 ? ` · 냉방 ${r.tempUp}℃ 올림: 냉방 전력 ${Math.round((1-r.tf)*100)}% 감소` : (r.acts.includes('temp') && r.season==='heat' ? ' · 난방 온도의 효과는 근거 자료가 없어 계산에서 제외했습니다' : ''));
+  $('resBadges').innerHTML = resBadges(r.res);
+  $('roomLine').textContent = `숙박 ${r.nights}박 · 1박 객실 ${f2(r.kwhNight)} kWh${r.measured?' (실측)':(r.manual?' (직접 입력)':' (연구 평균)')} · 1박 내 몫 ${f2(r.perNight)} kg`;
+  const { b } = myStats(S.trips);
+  const mode = document.querySelector('input[name=mode]:checked').value;
+  $('cmpLine').textContent = (b!=null && mode==='act')
+    ? `평소 1박(${f2(b)} kg)보다 ${b-r.perNight>=0? f2(b-r.perNight)+' kg 적습니다' : f2(r.perNight-b)+' kg 많습니다'}`
+    : (mode==='act' ? '"평소처럼 지낸 여행"도 기록하면 절감량을 비교할 수 있습니다' : '이 값이 비교 기준이 됩니다');
+  const roomNight = r.kwhNight*EF, max1 = roomNight || 1;
+  $('bars').innerHTML = [1,2,3,4].map(n=>{
+    const v = roomNight/n;
+    return `<div class="bar ${n===r.ppl?'me':''}"><span>${n}명</span><div class="track"><div class="fill" style="width:${(v/max1*100).toFixed(1)}%"></div></div><span class="v">${f2(v)} kg</span></div>`;
+  }).join('');
+  $('distTxt').textContent = Math.round(r.dist*10)/10;
+  const opts = ['subway','coach','bus','taxi','car'];
+  const vals = opts.map(id=>({id, v:r.dist*MODE[id].f}));
+  const max2 = Math.max(...vals.map(x=>x.v), 0.0001);
+  const used = new Set(r.legs.map(l=>l.mode==='diesel'||l.mode==='hybrid'?'car':l.mode));
+  $('tbars').innerHTML = vals.map(x=>`<div class="bar ${used.has(x.id)?'me':''}"><span>${MODE[x.id].t.replace(' (휘발유)','')}</span><div class="track"><div class="fill" style="width:${(x.v/max2*100).toFixed(1)}%"></div></div><span class="v">${f2(x.v)} kg</span></div>`).join('');
+  document.querySelectorAll('.leg').forEach((el,i)=>{ el.querySelector('.legkg').textContent = `이 구간 ${f2(r.legKgs[i]||0)} kg CO₂e`; });
+}
+function touched(){ $('exTag').hidden = true; }
+document.querySelectorAll('input[name=mode]').forEach(el=>el.addEventListener('change',()=>{ setActs(el.value==='base' ? [] : actDefaults()); renderCalc(); }));
+$('acts').addEventListener('change',()=>{ touched(); renderCalc(); });
+document.querySelectorAll('#acKw,#acH,#ltKw,#ltH,#etcKw,#etcH,#meter,#away,#tempUp,#ppl,#nights,input[name=mode],input[name=emode]').forEach(el=>el.addEventListener('input',()=>{ touched(); renderCalc(); }));
+document.querySelectorAll('#ppl,#nights,#season').forEach(el=>el.addEventListener('change',()=>{ touched(); renderCalc(); }));
+
+/* ---------- passport rendering ---------- */
+function mrz(){
+  const n = (S.nick||'HOLDER').toUpperCase().replace(/[^A-Z0-9가-힣]/g,'').slice(0,12);
+  const nn = S.trips.reduce((a,t)=>a+t.nights,0);
+  $('mrz').textContent = `P<KORSTAYUS<<${n}<<<<${S.trips.length}T${nn}N${S.pledges.length}P<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`;
+}
+function stampsHTML(){
+  if(!S.trips.length) return `<div class="stamp empty">첫 여행을 기록하면<br>도장이 찍힙니다</div>`;
+  return S.trips.slice().reverse().map(t=>{
+    const rot = ((t.ts % 13) - 6) + 'deg';
+    const blue = t.mode==='base';
+    return `<div class="stamp ${blue?'blue':''}" style="--r:${rot}">
+      <button class="del" data-ts="${t.ts}" aria-label="${t.date} 기록 지우기">×</button>
+      <span>SEOUL · ${t.date.replace(/-/g,'.')}<b>${f2(t.totKg)} kg</b>${t.nights}박 · ${blue?'평소':'수칙 실천'}<br>숙박 ${f2(t.accKg)} · 이동 ${f2(t.trKg)}</span></div>`;
+  }).join('');
+}
+function renderMine(){
+  mrz();
+  const { b, a, save } = myStats(S.trips);
+  const nn = S.trips.reduce((x,t)=>x+t.nights,0);
+  $('sTrips').textContent = `${S.trips.length}회 · ${nn}박`;
+  $('sTotal').textContent = f2(S.trips.reduce((x,t)=>x+t.totKg,0)) + ' kg';
+  $('sNight').textContent = `${b==null?'–':f2(b)} / ${a==null?'–':f2(a)}`;
+  $('sSave').textContent = save==null ? '두 종류를 모두 기록해야 합니다' : (save>=0?'−':'+')+f2(Math.abs(save))+' kg'+(b>0?` (${Math.round(save/b*100)}%)`:'');
+  const done = new Set(S.trips.filter(t=>t.mode==='act').flatMap(t=>t.acts));
+  $('pledgeBadges').innerHTML = S.pledges.length
+    ? S.pledges.map(id=>{const p=PLEDGES.find(x=>x.id===id); return p?`<span class="badge ${done.has(id)?'on':''}">${done.has(id)?'✓ ':''}${p.t}</span>`:'';}).join('')
+    : `<span class="badge">아직 서약하지 않았습니다</span>`;
+  const tot = {towel:0,clean:0,amenity:0,bottle:0};
+  S.trips.forEach(t=>{ const r = t.res || resOf(t.acts, t.nights); Object.keys(tot).forEach(k=>tot[k]+=r[k]||0); });
+  $('resTotal').innerHTML = resBadges(tot);
+  $('stamps').innerHTML = stampsHTML();
+}
+
+/* ---------- actions ---------- */
+function persist(){ store.set(S); renderMine(); renderCalc(); }
+$('nick').addEventListener('change', ()=>{ S.nick = $('nick').value.trim(); persist(); });
+$('savePledge').addEventListener('click', ()=>{
+  const sel = [...document.querySelectorAll('input[name=pledge]:checked')].map(i=>i.value);
+  if(sel.length < 3){ $('pledgeToast').style.color='var(--stamp)'; $('pledgeToast').textContent = `3개 이상 골라 주세요. 지금 ${sel.length}개입니다.`; return; }
+  S.pledges = sel; S.pledgedAt = new Date().toISOString(); persist();
+  $('pledgeToast').style.color=''; $('pledgeToast').textContent = `서약했습니다. 지킬 행동 ${sel.length}개가 도장 페이지에 표시됩니다.`;
+});
+$('saveTrip').addEventListener('click', ()=>{
+  const r = calc();
+  if(r.kwhNight <= 0){ $('tripToast').style.color='var(--stamp)'; $('tripToast').textContent='객실 전기 사용 시간이나 실측값을 적어 주세요.'; return; }
+  const t = { ts: Date.now(), date: $('date').value || new Date().toISOString().slice(0,10), stay: $('stay').value,
+    mode: document.querySelector('input[name=mode]:checked').value, ppl: r.ppl, nights: r.nights,
+    kwhNight: +r.kwhNight.toFixed(3), perNight: +r.perNight.toFixed(4), accKg: +r.accKg.toFixed(3),
+    legs: r.legs, trKg: +r.trKg.toFixed(3), totKg: +r.totKg.toFixed(3), measured: r.measured,
+    away: r.away, season: r.season, tempUp: r.tf<1 ? r.tempUp : 0, acts: r.acts, res: r.res };
+  S.trips.push(t); persist();
+  $('tripToast').style.color=''; $('tripToast').textContent = `${t.date}부터 ${t.nights}박 여행을 기록했습니다. 도장 페이지에서 확인할 수 있습니다.`;
+});
+$('resetForm').addEventListener('click', ()=>{
+  ['acH','ltH','etcH','meter'].forEach(id=>$(id).value='');
+  ['away'].forEach(id=>$(id).value='');
+  setActs(document.querySelector('input[name=mode]:checked').value==='base' ? [] : actDefaults());
+  $('legs').innerHTML=''; addLeg({mode:'subway',km:0,round:true,carPpl:1});
+  touched(); renderCalc();
+});
+$('stamps').addEventListener('click', e=>{
+  const b = e.target.closest('.del'); if(!b) return;
+  S.trips = S.trips.filter(t=>String(t.ts)!==b.dataset.ts); persist();
+});
+let clearArmed = false;
+$('clearAll').addEventListener('click', ()=>{
+  if(!clearArmed){ clearArmed = true; $('clearAll').textContent='한 번 더 누르면 모두 지워집니다'; setTimeout(()=>{clearArmed=false; $('clearAll').textContent='내 기록 모두 지우기';},4000); return; }
+  clearArmed = false; $('clearAll').textContent='내 기록 모두 지우기';
+  S = { nick:S.nick, pledges:[], pledgedAt:null, trips:[] };
+  document.querySelectorAll('input[name=pledge]').forEach(i=>i.checked=false);
+  persist(); $('clearToast').textContent='기록을 모두 지웠습니다.';
+});
+
+store.set(S);
+renderCalc(); renderMine();
+
+</script>
+
+</body>
+</html>
